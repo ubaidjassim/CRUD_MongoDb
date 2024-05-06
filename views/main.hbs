@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD</title>
+</head>
+
+<body>
+    <h1>CRUD Database using Express and MongoDB</h1>
+    {{message}}
+    <br>
+    {{#if edit_id}}
+    <h3>Edit</h3>
+    <form action="/update_book/{{edit_id}}" method="POST">
+        <label for="title">Title</label>
+        <input id="title" type="text" name="title" value="{{edit_book.title}}">
+        <label for="author">Author</label>
+        <input id="author" type="text" name="author" value="{{edit_book.author}}">
+        <input type="submit">
+    </form><br><br>
+    {{else}}
+    <h3>Insert (Create) a new book</h3>
+    <form action="/store_book" method="POST">
+        <label for="title">Title</label>
+        <input id="title" type="text" name="title">
+        <label for="author">Author</label>
+        <input id="author" type="text" name="author">
+        <input type="submit">
+    </form>
+    {{/if}}
+    <ul>
+        {{#each books}}
+        <li>{{this.title}}-{{this.author}} <a href="/?edit_id={{this._id}}">Edit</a><a href="/?delete_id={{this._id}}"
+                onclick="return confirm('Are you sure to delete it?')">Delete</a></li>
+        {{/each}}
+    </ul>
+</body>
+
+</html>
